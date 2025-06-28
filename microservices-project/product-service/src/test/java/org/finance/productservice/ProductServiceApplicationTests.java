@@ -20,7 +20,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -99,6 +98,5 @@ class ProductServiceApplicationTests {
                 .andExpect(jsonPath("$[0].description").value("test description"))
                 .andExpect(jsonPath("$[0].price").value(BigDecimal.valueOf(1)));
     }
-
 }
 

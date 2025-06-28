@@ -15,6 +15,7 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -41,18 +42,12 @@ class InventoryServiceApplicationTests {
 
     @Test
     void getInventoryInStock() throws Exception {
-        MvcResult inStock = mockMvc.perform(MockMvcRequestBuilders.get("/api/inventory/SKU1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/inventory?skuCode=SKU1&skuCode=SKU2"))
                 .andExpect(status().isOk())
-                .andReturn();
-        Assertions.assertEquals("true", inStock.getResponse().getContentAsString());
+                .andExpect(jsonPath("$.size()").value(2))
+                .andExpect(jsonPath("$[0].skuCode").value("SKU1"))
+                .andExpect(jsonPath("$[0].isInStock").value(true))
+                .andExpect(jsonPath("$[1].skuCode").value("SKU2"))
+                .andExpect(jsonPath("$[1].isInStock").value(false));
     }
-
-    @Test
-    void getInventoryNotInStock() throws Exception {
-        MvcResult inStock = mockMvc.perform(MockMvcRequestBuilders.get("/api/inventory/iphone_13"))
-                .andExpect(status().isOk())
-                .andReturn();
-        Assertions.assertEquals("false", inStock.getResponse().getContentAsString());
-    }
-
 }

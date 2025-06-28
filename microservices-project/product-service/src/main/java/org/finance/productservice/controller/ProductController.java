@@ -6,6 +6,7 @@ import org.finance.productservice.dto.ProductResponse;
 import org.finance.productservice.model.Product;
 import org.finance.productservice.service.ProductService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,7 @@ public class ProductController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<ProductResponse> getAllProducts() {
-        return productService.getAllProducts();
+    public ResponseEntity<List<ProductResponse>> getAllProducts() {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts());
     }
 }
