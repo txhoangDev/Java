@@ -8,6 +8,7 @@ import org.finance.orderservice.model.OrderLineItems;
 import org.finance.orderservice.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.UUID;
 import java.util.List;
@@ -16,8 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class OrderService {
-
     private final OrderRepository orderRepository;
+    private final WebClient webClient;
 
     private OrderLineItems mapToDto(OrderLineItemsDto orderLineItemsDto) {
         OrderLineItems orderLineItems = new OrderLineItems();
@@ -36,6 +37,9 @@ public class OrderService {
                 .toList();
 
         order.setOrderLineItemsList(orderLineItemsList);
+
+        // call inventory service, and place order if product is in stock
+//        webClient.get()
         orderRepository.save(order);
     }
 }

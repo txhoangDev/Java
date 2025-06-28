@@ -30,8 +30,8 @@ class OrderServiceApplicationTests {
 	@Container
 	static MySQLContainer<?> mysqlContainer = new MySQLContainer<>("mysql:8.0")
 			.withDatabaseName("order_service")
-			.withUsername("root")
-			.withPassword("root");
+			.withUsername("spring.datasource.username")
+			.withPassword("spring.datasource.password");
 
 	@DynamicPropertySource
 	static void overrideProperties(DynamicPropertyRegistry registry) {
