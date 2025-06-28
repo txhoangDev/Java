@@ -7,6 +7,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Getter
 public class InventoryConfig {
-    @Value("http://localhost8082/api/inventory")
+    @Value("http://inventory-service/api/inventory")
     private String inventoryServiceUrl;
 }

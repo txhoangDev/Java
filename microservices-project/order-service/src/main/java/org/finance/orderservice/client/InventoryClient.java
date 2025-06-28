@@ -11,11 +11,11 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class InventoryClient {
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
     private final InventoryConfig inventoryConfig;
 
     public InventoryResponse[] getInventory(List<String> skuCodes) {
-        return webClient.get()
+        return webClientBuilder.build().get()
                 .uri(inventoryConfig.getInventoryServiceUrl(), uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                 .retrieve()
                 .bodyToMono(InventoryResponse[].class)

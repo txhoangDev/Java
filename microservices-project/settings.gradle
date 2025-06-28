@@ -6,4 +6,7 @@
  */
 
 rootProject.name = 'microservices-project'
-include('inventory-service', 'order-service', 'product-service')
+include 'inventory-service'
+include 'order-service'
+include 'product-service'
+include 'discovery-server'
